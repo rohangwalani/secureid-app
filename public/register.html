@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - SecureID</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Lucide Icons for simple SVG icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="register-page">
+    <div class="container" style="box-shadow:none; border-radius:0; max-width:100%; margin:0;">
+        
+        <!-- Main Content Area -->
+        <div class="main-content" style="width: 100%; max-width: 800px; margin: 0 auto; padding-top: 40px;">
+            
+            <!-- Mobile Nav -->
+            <div class="hide-on-web" style="margin-bottom: 24px;">
+                <button type="button" class="icon-btn" style="background:none; border:none; cursor:pointer;"><i data-lucide="arrow-left"></i></button>
+            </div>
+
+            <!-- Top Nav for Web Registration -->
+            <div class="top-nav hide-on-mobile" style="display: flex; align-items: center; margin-bottom: 40px;">
+                <div class="logo text-primary" style="font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="shield"></i> SecureID
+                </div>
+                
+                <div class="steps-indicator" style="flex: 1; display: flex; justify-content: center; gap: 16px; margin-top: 0;">
+                    <div class="step-dot active" id="dot-1" style="color: white; background-color: var(--primary-color);">1</div>
+                    <div class="step-dot" id="dot-2" style="background-color: var(--bg-color); color: var(--text-secondary);">2</div>
+                    <div class="step-dot" id="dot-3" style="background-color: var(--bg-color); color: var(--text-secondary);">3</div>
+                    <div class="step-dot" id="dot-4" style="background-color: var(--bg-color); color: var(--text-secondary);">4</div>
+                    <div class="step-dot" id="dot-5" style="background-color: var(--bg-color); color: var(--text-secondary);">5</div>
+                </div>
+            </div>
+            
+            <!-- Screen 1: Form Details -->
+            <div id="screen-register" class="screen active">
+                <div class="header text-center mobile-left-align">
+                    <h1>Create your account</h1>
+                    <p>Let's get you started</p>
+                </div>
+                
+                <form id="register-form" class="register-form-container">
+                    <div class="input-group">
+                        <label for="fullName">Full Name</label>
+                        <div class="input-field">
+                            <input type="text" id="fullName" placeholder="Priya Sharma" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <div class="input-field">
+                            <input type="email" id="email" placeholder="priya.sharma@email.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="mobile">Mobile Number</label>
+                        <div class="input-field" style="display: flex; gap: 8px;">
+                            <select style="width: 80px; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--border-radius); background: white;">
+                                <option>+91</option>
+                            </select>
+                            <input type="tel" id="mobile" placeholder="98765 43210" required style="flex:1;">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group" style="position: relative;">
+                        <label for="password">Password</label>
+                        <div class="input-field">
+                            <input type="password" id="password" placeholder="••••••••••••" required>
+                            <button type="button" class="password-toggle" id="toggle-password">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="password-strength" id="pass-req-block">
+                            <p style="font-weight: 500; margin-bottom: 8px; color: var(--text-primary);">Password must contain:</p>
+                            <ul class="strength-reqs">
+                                <li><i data-lucide="check-circle" class="req-check" id="req-length" width="16"></i> At least 8 characters</li>
+                                <li><i data-lucide="check-circle" class="req-check" id="req-upper" width="16"></i> 1 uppercase letter</li>
+                                <li><i data-lucide="check-circle" class="req-check" id="req-number" width="16"></i> 1 number</li>
+                                <li><i data-lucide="check-circle" class="req-check" id="req-special" width="16"></i> 1 special character</li>
+                            </ul>
+                            <div style="margin-top: 8px; font-weight: 600;" id="strength-text"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-row" style="gap: 8px; font-size: 13px; align-items: flex-start; margin-top: 16px;">
+                        <input type="checkbox" id="terms" required style="margin-top: 3px; accent-color: var(--primary-color);">
+                        <label for="terms">I agree to the <a href="#" class="text-primary" style="text-decoration:none;" onclick="alert('Terms & Conditions document is not provided for this assignment.')">Terms & Conditions</a> and <a href="#" class="text-primary" style="text-decoration:none;" onclick="alert('Privacy Policy document is not provided for this assignment.')">Privacy Policy</a></label>
+                    </div>
+                    
+                    <div id="register-error" class="text-error text-sm text-center" style="display:none;"></div>
+                    
+                    <button type="submit" class="btn mt-4">Create Account</button>
+                    
+                    <p class="text-center text-sm" style="margin-top: 16px;">
+                        Already have an account? <a href="login.html" class="text-primary" style="font-weight: 600; text-decoration: none;">Login</a>
+                    </p>
+                </form>
+            </div>
+            
+            <!-- Screen 2: Email OTP -->
+            <div id="screen-email-otp" class="screen">
+                <button type="button" class="back-button" onclick="showScreen('screen-register', 1)"><i data-lucide="arrow-left"></i></button>
+                <div class="header">
+                    <div class="icon-wrapper"><i data-lucide="mail"></i></div>
+                    <h1>Verify your email</h1>
+                    <p>We have sent a 6-digit code to<br><strong class="text-primary" id="display-email"></strong></p>
+                </div>
+                
+                <div class="otp-inputs" id="email-otp-group">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                </div>
+                
+                <p id="email-otp-err" class="text-error text-center text-sm" style="display:none; font-weight: 500;"></p>
+                <p id="email-otp-msg" class="text-center text-sm mb-4">Code expires in <strong class="text-primary" id="email-timer">02:45</strong></p>
+                
+                <div class="text-center">
+                    <button type="button" class="link-btn mb-4 text-primary" id="resend-email-btn" disabled>Resend code</button>
+                    <br>
+                    <button type="button" class="link-btn text-secondary" style="font-size: 13px;">Didn't receive the code?</button>
+                </div>
+            </div>
+
+            <!-- Screen 3: Mobile OTP -->
+            <div id="screen-mobile-otp" class="screen">
+                <button type="button" class="back-button" onclick="showScreen('screen-email-otp', 2)"><i data-lucide="arrow-left"></i></button>
+                <div class="header">
+                    <div class="icon-wrapper" style="background-color: #dcfce7; color: #16a34a;"><i data-lucide="phone"></i></div>
+                    <h1>Verify your mobile</h1>
+                    <p>We have sent a 6-digit code to<br><strong class="text-primary" id="display-mobile"></strong></p>
+                </div>
+                
+                <div class="otp-inputs" id="mobile-otp-group">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                </div>
+                
+                <p id="mobile-otp-err" class="text-error text-center text-sm" style="display:none; font-weight: 500;"></p>
+                <p id="mobile-otp-msg" class="text-center text-sm mb-4">Code expires in <strong class="text-primary" id="mobile-timer">02:45</strong></p>
+                
+                <div class="text-center">
+                    <button type="button" class="link-btn mb-4 text-primary" id="resend-mobile-btn" disabled>Resend code</button>
+                    <br>
+                    <p class="text-sm text-secondary">Wrong number? <button type="button" class="link-btn">Change</button></p>
+                </div>
+            </div>
+
+            <!-- Screen 4: Set up MFA -->
+            <div id="screen-setup-mfa" class="screen">
+                <button type="button" class="back-button" onclick="showScreen('screen-mobile-otp', 3)"><i data-lucide="arrow-left"></i></button>
+                <div class="header">
+                    <div class="icon-wrapper"><i data-lucide="shield-check"></i></div>
+                    <h1>Set up Multi-Factor Auth</h1>
+                    <p>Add an extra layer of security<br>to protect your account.</p>
+                </div>
+                
+                <div class="radio-card" onclick="selectMfa('authenticator')">
+                    <div class="radio-icon"><i data-lucide="smartphone"></i></div>
+                    <div class="radio-content">
+                        <h4>Authenticator App</h4>
+                        <p>Use code from authenticator app</p>
+                    </div>
+                    <input type="radio" name="mfa" id="mfa-auth" class="radio-input">
+                </div>
+                
+                <div class="radio-card selected" onclick="selectMfa('sms')">
+                    <div class="radio-icon" style="color:#16a34a;"><i data-lucide="message-square"></i></div>
+                    <div class="radio-content">
+                        <h4>SMS Authentication</h4>
+                        <p>Receive codes on your mobile</p>
+                    </div>
+                    <input type="radio" name="mfa" id="mfa-sms" class="radio-input" checked>
+                </div>
+                
+                <div class="radio-card" onclick="selectMfa('email')">
+                    <div class="radio-icon" style="color:#9333ea;"><i data-lucide="mail"></i></div>
+                    <div class="radio-content">
+                        <h4>Email Authentication</h4>
+                        <p>Receive codes on your email</p>
+                    </div>
+                    <input type="radio" name="mfa" id="mfa-email" class="radio-input">
+                </div>
+                
+                <button type="button" class="btn mt-4" onclick="handleMfaSelection()">Continue</button>
+            </div>
+
+            <!-- Screen 5: Authenticator Setup -->
+            <div id="screen-authenticator-setup" class="screen">
+                <button type="button" class="back-button" onclick="showScreen('screen-setup-mfa', 4)"><i data-lucide="arrow-left"></i></button>
+                <div class="header">
+                    <div class="icon-wrapper"><i data-lucide="smartphone"></i></div>
+                    <h1>Scan QR Code</h1>
+                    <p>Open your authenticator app and<br>scan this QR code</p>
+                </div>
+                
+                <div class="text-center" style="margin: 32px 0;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=otpauth://totp/SecureID:User?secret=JBSWY3DPEHPK3PXP&issuer=SecureID" alt="QR Code" style="width: 150px; height: 150px; border-radius: 8px;">
+                </div>
+                
+                <div class="text-center mb-4">
+                    <button type="button" class="link-btn text-primary" style="font-size: 13px;">Can't scan? Enter setup key</button>
+                </div>
+                
+                <div class="flex-row justify-between" style="gap: 16px; margin-top: 32px;">
+                    <button type="button" class="btn btn-outline" style="flex:1;" onclick="showScreen('screen-setup-mfa', 4)">Back</button>
+                    <button type="button" class="btn" style="flex:1;" onclick="showScreen('screen-mfa-verification', 4)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Screen 6: MFA Verification -->
+            <div id="screen-mfa-verification" class="screen">
+                <button type="button" class="back-button" onclick="showScreen('screen-authenticator-setup', 4)"><i data-lucide="arrow-left"></i></button>
+                <div class="header">
+                    <div class="icon-wrapper" style="background-color: #ede9fe; color: #7c3aed;"><i data-lucide="smartphone"></i></div>
+                    <h1>Enter the 6-digit code</h1>
+                    <p>Enter the code from your<br>authenticator app</p>
+                </div>
+                
+                <div class="otp-inputs" id="auth-otp-group">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                </div>
+                
+                <p id="auth-otp-msg" class="text-center text-sm mb-4">Code expires in <strong class="text-primary" id="auth-timer">00:30</strong></p>
+                
+                <div class="text-center">
+                    <button type="button" class="link-btn text-primary" style="font-size: 13px;">Can't access your app?</button>
+                </div>
+            </div>
+
+            <!-- Screen 7: Registration Success -->
+            <div id="screen-success" class="screen">
+                <div class="header" style="margin-top: 40px;">
+                    <div class="icon-wrapper success"><i data-lucide="check"></i></div>
+                    <h1>Account created!</h1>
+                    <p>Your account has been created<br>successfully and MFA is enabled.</p>
+                </div>
+                
+                <div style="margin: 32px 0; max-width: 250px; margin-left: auto; margin-right: auto;">
+                    <div class="flex-row" style="margin-bottom: 16px; gap: 12px;">
+                        <i data-lucide="check" class="text-success" width="18"></i> <span class="text-sm font-medium">Email verified</span>
+                    </div>
+                    <div class="flex-row" style="margin-bottom: 16px; gap: 12px;">
+                        <i data-lucide="check" class="text-success" width="18"></i> <span class="text-sm font-medium">Mobile verified</span>
+                    </div>
+                    <div class="flex-row" style="gap: 12px;">
+                        <i data-lucide="check" class="text-success" width="18"></i> <span class="text-sm font-medium">MFA enabled</span>
+                    </div>
+                </div>
+                
+                <button type="button" class="btn mt-4" onclick="window.location.href='login.html'">Continue to Login</button>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                &copy; 2024 SecureID. All rights reserved.
+            </div>
+
+        </div>
+    </div>
+
+    <script src="register.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
